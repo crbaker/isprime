@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:isprime/divisors.dart';
-import 'package:isprime/thingy.dart';
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
@@ -46,28 +45,25 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   List<int> _checkPrimality(int number) {
-    var divisors = Thingy().checkPrimality(number);
+    var divisors = List<int>();
+
+    if (number <= 1) {
+      divisors.add(0);
+    } else if (number < 3) {
+    } else {
+      var i = 2;
+      _testing = true;
+
+      while ((i < number) && (_testing)) {
+        if ((number % i) == 0) {
+          divisors.add(i);
+        }
+        i++;
+      }
+      _testing = false;
+    }
 
     return divisors;
-    // var divisors = List<int>();
-
-    // if (number <= 1) {
-    //   divisors.add(0);
-    // } else if (number < 3) {
-    // } else {
-    //   var i = 2;
-    //   _testing = true;
-
-    //   while ((i < number) && (_testing)) {
-    //     if ((number % i) == 0) {
-    //       divisors.add(i);
-    //     }
-    //     i++;
-    //   }
-    //   _testing = false;
-    // }
-
-    // return divisors;
   }
 
   @override
