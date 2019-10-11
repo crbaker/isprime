@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:isprime/divisors.dart';
+import 'package:isprime/thingy.dart';
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
@@ -45,25 +46,28 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   List<int> _checkPrimality(int number) {
-    var divisors = List<int>();
-
-    if (number <= 1) {
-      divisors.add(0);
-    } else if (number < 3) {
-    } else {
-      var i = 2;
-      _testing = true;
-
-      while ((i < number) && (_testing)) {
-        if ((number % i) == 0) {
-          divisors.add(i);
-        }
-        i++;
-      }
-      _testing = false;
-    }
+    var divisors = Thingy().checkPrimality(number);
 
     return divisors;
+    // var divisors = List<int>();
+
+    // if (number <= 1) {
+    //   divisors.add(0);
+    // } else if (number < 3) {
+    // } else {
+    //   var i = 2;
+    //   _testing = true;
+
+    //   while ((i < number) && (_testing)) {
+    //     if ((number % i) == 0) {
+    //       divisors.add(i);
+    //     }
+    //     i++;
+    //   }
+    //   _testing = false;
+    // }
+
+    // return divisors;
   }
 
   @override
@@ -100,19 +104,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       textColor: Colors.white,
                       padding: EdgeInsets.all(10)),
                 ),
-                Container (
-                  alignment: Alignment.center,
-                  padding: EdgeInsets.only(left: 50, right: 50),
-                  constraints: BoxConstraints.expand(height: 150),
-                  decoration: BoxDecoration (
-                      image: DecorationImage(
-                          image: AssetImage("images/Circles@3x.png"),
-                          fit: BoxFit.contain)),
-                  child: Center (
-                    child: Image.asset(_image,
-                    width: 50,),
-                  ),
-                ),
+                new CirclesWidget(image: _image),
                 Container(
                   padding: EdgeInsets.only(bottom: 20),
                   child: Text(
@@ -147,6 +139,32 @@ class _MyHomePageState extends State<MyHomePage> {
                 )),
               ],
             )),
+    );
+  }
+}
+
+class CirclesWidget extends StatelessWidget {
+  const CirclesWidget({
+    Key key,
+    @required String image,
+  }) : _image = image, super(key: key);
+
+  final String _image;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container (
+      alignment: Alignment.center,
+      padding: EdgeInsets.only(left: 50, right: 50),
+      constraints: BoxConstraints.expand(height: 150),
+      decoration: BoxDecoration (
+          image: DecorationImage(
+              image: AssetImage("images/Circles@3x.png"),
+              fit: BoxFit.contain)),
+      child: Center (
+        child: Image.asset(_image,
+        width: 50,),
+      ),
     );
   }
 }
